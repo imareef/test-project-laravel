@@ -3,6 +3,8 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
  Route::get('/', function () {
      return view('welcome');
@@ -14,6 +16,9 @@ Route::group(['prefix' => '/panel', 'middleware' => ['auth:web', \App\Http\Middl
     Route::get('/users/{user}/logs', [UserController::class, 'logs'])->name('logs');
     Route::resource('users', UserController::class)->only(['index', 'store', 'edit', 'update', 'destroy', 'create']);
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
 });
 
 
